@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery.js"></script>
+    <script src="dataGenerator.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <title> Twiddler Project</title>
+    <header>
+      <h1 class="title">Twiddler</h1>
+      <p class="caption">Made by Renat Norderhaug</p>
+    </header>
+  </head>
+  <body>
+    <div class="container">
+    <div class="title">
+
+    </div>
+    <button type="button" class="refresh">Automatically refresh</button>
+    <div class="newTweets">
+
+    </div>
+    <div class="mainTweets">
+
+    </div>
+    <div class="footer">
+      <p>Copyright @ Renat Norderhaug</p>
+    </div>
+    </div>
+    <script>
+
+      $(document).ready(function(){
+        var $body = $('body');
+        var $mainTweets = $('.mainTweets');
+         // $body.html('');
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<div></div>');
+          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          $tweet.appendTo($mainTweets);
+          index -= 1;
+        }
+
+      });
+
+    </script>
+  </body>
+</html>
