@@ -12,15 +12,14 @@
   </head>
   <body>
     <div class="container">
-    <div class="title">
-
-    </div>
     <button type="button" class="refresh">Automatically refresh</button>
+    <div class ="tweets">
     <div class="newTweets">
 
     </div>
     <div class="mainTweets">
 
+    </div>
     </div>
     <div class="footer">
       <p>Copyright @ Renat Norderhaug</p>
@@ -36,17 +35,28 @@
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
+          var $tweet = $('<div class="tweet"> </div>');
+          var $userTweet = $('<p class="users">' + tweet.user + '</p>');
+          var $userMessage = $('<p>' + tweet.message + '</p>');
+          var seconds = tweet.created_at.getSeconds();
+          var $userTime = $('<p>' + seconds + ' seconds ago:' + '</p>');
+          $userTweet.addClass(tweet.user).attr('data-name', tweet.user).text('@' + tweet.user + ' ');
+          /*
           $tweet.text('@' + tweet.user + ': ' + tweet.message + tweet.created_at);
+          */
+          $userTweet.appendTo($tweet);
+          $userMessage.insertAfter($userTweet);
+          $userTime.insertAfter($userMessage);
           $tweet.appendTo($mainTweets);
           index -= 1;
         }
 
         // handle when the button is clicked to refresh tweets
+
         $('.refresh').on('click', function() {
         var $mainTweets = $('.mainTweets');
         // $mainTweets.html('');
-        setInterval(function() {
+        var interval = setInterval(function() {
         var $body = $('body');
          // $body.html('');
         var $newTweets = $('.newTweets');
@@ -54,18 +64,58 @@
         var index = streams.home.length - 1;
         while(index >= 11){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
+          var $tweet = $('<div class="tweet"> </div>');
+          var $userTweet = $('<p class="users">' + tweet.user + '</p>');
+          var $userMessage = $('<p>' + tweet.message + '</p>');
+          var seconds = tweet.created_at.getSeconds();
+          var $userTime = $('<p>' + seconds + ' seconds ago:' + '</p>');
+          $userTweet.addClass(tweet.user).attr('data-name', tweet.user).text('@' + tweet.user + ' ');
+          /*
           $tweet.text('@' + tweet.user + ': ' + tweet.message + tweet.created_at);
+          */
+          $userTweet.appendTo($tweet);
+          $userMessage.insertAfter($userTweet);
+          $userTime.insertAfter($userMessage);
           $tweet.appendTo($newTweets);
           index -= 1;
         }
         }, 2000);
         });
+        // only show the users tweets when a handle is clicked.
+        var handles = streams.users;
+        // check if a users handle is clicked.
+        var userHandle = tweet.user;
+        // userHandle.click('function')
+        $(".douglascalhoun").css("color","red");
+        $("div.footer").has("p").css("color","red");
+        $(".newTweets").has("p").css("color", "red");
+
+        // to handle the home button
+      var $homeButton = $(`<button class='home'>Home Page </button>`);
+      $homeButton.on('click',function(event) {
+        event.preventDefault();
+        $('.usersPage').remove();
+        $('div').show(300);
+        $('.refresh').show(300);
+        $homeButton.hide(300);
+        // clearInterval(interval);
+      });
+      $homeButton.insertAfter('.refresh').hide();
 
 
-
-
-
+         // to show a specific users page we are using the browsers data
+        $('.tweets').on('click','.tweet .users', function(event) {
+          event.preventDefault();
+          // grab the data of data - name attribute that is passed to the user data and pass it to the user variable
+          var user = $(this).data('name');
+          $('.userPage').remove();
+          var $userPage = $(`<h1 class=userPage> ${user}'s Page</h1>`);
+          $userPage.prependTo($body);
+          $('.refresh').hide();
+          $homeButton.show(300);
+          $('.tweet').not("div:contains('" + user + "')").hide(300);
+          $("div:contains('" + user + "')").show(300);
+          // clearInterval(interval);
         });
 
 
@@ -74,8 +124,11 @@
 
 
 
-        // only show the users tweets when a handle is clicked.
 
+
+
+
+      });
 
     </script>
   </body>

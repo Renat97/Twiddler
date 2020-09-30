@@ -60,3 +60,6 @@ body {
   font-size: 10px;
   color: #E4E3E3;
 }
+p {
+  margin:0;
+}
