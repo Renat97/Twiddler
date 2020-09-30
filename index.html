@@ -25,6 +25,11 @@
       <p>Copyright @ Renat Norderhaug</p>
     </div>
     </div>
+    <style>
+      .highlight {
+        color: red;
+      }
+    </style>
     <script>
 
       $(document).ready(function(){
@@ -86,7 +91,7 @@
         // check if a users handle is clicked.
         var userHandle = tweet.user;
         // userHandle.click('function')
-        $(".douglascalhoun").css("color","red");
+        // $(".douglascalhoun").css("color","red");
         $("div.footer").has("p").css("color","red");
         $(".newTweets").has("p").css("color", "red");
 
@@ -94,7 +99,7 @@
       var $homeButton = $(`<button class='home'>Home Page </button>`);
       $homeButton.on('click',function(event) {
         event.preventDefault();
-        $('.usersPage').remove();
+        $('.userPage').remove();
         $('div').show(300);
         $('.refresh').show(300);
         $homeButton.hide(300);
@@ -117,6 +122,13 @@
           $("div:contains('" + user + "')").show(300);
           // clearInterval(interval);
         });
+
+        // highlighting
+        $('.tweet').hover(highlight);
+
+        function highlight() {
+          $(this).toggleClass("highlight");
+        }
 
 
 
