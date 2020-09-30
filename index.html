@@ -29,6 +29,7 @@
     <script>
 
       $(document).ready(function(){
+        // create the main twitter page set up
         var $body = $('body');
         var $mainTweets = $('.mainTweets');
          // $body.html('');
@@ -36,12 +37,45 @@
         while(index >= 0){
           var tweet = streams.home[index];
           var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          $tweet.text('@' + tweet.user + ': ' + tweet.message + tweet.created_at);
           $tweet.appendTo($mainTweets);
           index -= 1;
         }
 
-      });
+        // handle when the button is clicked to refresh tweets
+        $('.refresh').on('click', function() {
+        var $mainTweets = $('.mainTweets');
+        // $mainTweets.html('');
+        setInterval(function() {
+        var $body = $('body');
+         // $body.html('');
+        var $newTweets = $('.newTweets');
+        $newTweets.html('');
+        var index = streams.home.length - 1;
+        while(index >= 11){
+          var tweet = streams.home[index];
+          var $tweet = $('<div></div>');
+          $tweet.text('@' + tweet.user + ': ' + tweet.message + tweet.created_at);
+          $tweet.appendTo($newTweets);
+          index -= 1;
+        }
+        }, 2000);
+        });
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+        // only show the users tweets when a handle is clicked.
+
 
     </script>
   </body>
